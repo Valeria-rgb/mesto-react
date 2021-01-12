@@ -1,5 +1,5 @@
 @media screen and (min-width: 300px) {
-  .popup__close-button_add-popup {
+  .popup__close-button_add {
     width: 34px;
     height: 34px;
     margin-right: -25px;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (min-width: 960px) {
-  .popup__close-button_add-popup {
+  .popup__close-button_add {
     width: 56px;
     height: 56px;
     margin-right: -45px;

@@ -1,35 +1,38 @@
-function Main() {
+import React from "react";
+import myApi from "../utils/api";
 
-    function handleEditAvatarClick() {
-        const avatarPopup = document.querySelector('.popup_new-avatar');
-        avatarPopup.classList.add('popup_opened')
-    }
+function Main({onEditAvatar, onEditProfile, onAddPlace}) {
+    const [userName, setUserName] = React.useState('');
+    const [userDescription, setUserDescription] = React.useState('');
+    const [userAvatar, setUserAvatar] = React.useState('');
 
-    function handleEditProfileClick() {
-        const EditProfilePopup = document.querySelector('.popup_edit');
-        EditProfilePopup.classList.add('popup_opened')
-    }
+    React.useEffect(() => {
+        myApi.getStartData()
+            .then(([{name, about, avatar}]) => {
+                setUserName(name);
+                setUserDescription(about);
+                setUserAvatar(avatar);
+            })
+            .catch((err) => console.log(`Упс!: ${err}`))
+    }, []);
 
-    function handleAddPlaceClick() {
-        const AddPlacePopup = document.querySelector('.popup_add');
-        AddPlacePopup.classList.add('popup_opened')
-    }
+
 
     return (
         <main className="content">
             <section className="profile">
                 <div className="profile__avatar-container">
-                    <img className="profile__avatar" src="<%=require('./images/profile__avatar.png')%>" alt="Аватар"/>
-                    <button onClick={handleEditAvatarClick} className="profile__avatar-button"></button>
+                    <img className="profile__avatar" src={userAvatar} alt="Аватар"/>
+                    <button className="profile__avatar-button" onClick={onEditAvatar}></button>
                 </div>
                 <div className="profile__info">
                     <div className="profile__text">
-                        <h1 className="profile__name">Жак-Ив Кусто</h1>
-                        <button onClick={handleEditProfileClick} className="profile__edit-button" type="button" aria-label="Edit"></button>
+                        <h1 className="profile__name">{userName}</h1>
+                        <button className="profile__edit-button" type="button" aria-label="Edit" onClick={onEditProfile}></button>
                     </div>
-                    <p className="profile__description">Исследователь океана</p>
+                    <p className="profile__description">{userDescription}</p>
                 </div>
-                <button onClick={handleAddPlaceClick} className="profile__add-button" type="button"></button>
+                <button className="profile__add-button" type="button" onClick={onAddPlace}></button>
             </section>
             <section className="elements">
                 <ul className="cards">
