@@ -6,11 +6,11 @@ import Footer from '../components/Footer';
 import PopupWithForm from '../components/PopupWithForm';
 import ImagePopup from '../components/ImagePopup';
 
-
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({link: "", name: "", isOpen: false});
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -24,10 +24,15 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+    function handleCardClick(card) {
+        setSelectedCard({link: card.link, name: card.name, isOpen: true});
+    }
+
   function closeAllPopups() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setSelectedCard({link: "", name: "", isOpen: false});
   }
 
   return (
@@ -36,7 +41,8 @@ function App() {
           <Main
             onEditAvatar={handleEditAvatarClick}
             onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}/>
+            onAddPlace={handleAddPlaceClick}
+            onCardClick={handleCardClick}/>/>
           <Footer/>
           <PopupWithForm
               name="edit"
@@ -69,14 +75,7 @@ function App() {
                          <span className="popup__error" id="link-of-image-error"/>
               </form>
           </PopupWithForm>
-
-          <div className="popup popup_scale-photo">
-            <div className="popup__photo-container">
-              <button className="popup__close-button popup__close-button_photo"></button>
-              <img className="popup__photo"/>
-                <h2 className="popup__photo-title"></h2>
-            </div>
-          </div>
+          <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
           <PopupWithForm name="delete-photo" title="Вы уверены?"/>
           <PopupWithForm
             name="new-avatar"
@@ -91,8 +90,6 @@ function App() {
                   </form>
           </PopupWithForm>
       </div>
-
 );
 }
-
 export default App;
