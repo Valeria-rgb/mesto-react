@@ -66,7 +66,7 @@ function App() {
                   <input className="popup__input popup__input_link-of-image" placeholder="Ссылка на картинку" type="url"
                          name="link"
                          id="link-of-image" required/>
-                         <span className="popup__error" id="link-of-image-error"></span>
+                         <span className="popup__error" id="link-of-image-error"/>
               </form>
           </PopupWithForm>
 
