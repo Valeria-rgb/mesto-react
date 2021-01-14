@@ -15,6 +15,7 @@ function Card({ card, onCardClick }) {
                 </div>
             </div>
         </li>
-    )
+    );
 }
+
 export default Card;

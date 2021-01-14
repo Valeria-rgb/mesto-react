@@ -90,6 +90,7 @@ function App() {
                   </form>
           </PopupWithForm>
       </div>
-);
+  );
 }
+
 export default App;

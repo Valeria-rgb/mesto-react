@@ -12,6 +12,7 @@ function PopupWithForm({title, name, children, isOpen, onClose}) {
         </div>
     );
 }
+
 export default PopupWithForm
 
 

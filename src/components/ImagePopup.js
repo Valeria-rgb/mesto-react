@@ -7,7 +7,8 @@ function ImagePopup({card, onClose}) {
                 <h2 className="popup__photo-title">{card.name}</h2>
             </div>
         </div>
-    )
+    );
 }
+
 export default ImagePopup
 
