@@ -35,7 +35,6 @@ function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
             .catch((err) => console.log(`Упс!: ${err}`));
     }
 
-
     return (
         <main className="content">
             <section className="profile">

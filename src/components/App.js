@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import PopupWithForm from '../components/PopupWithForm';
 import ImagePopup from '../components/ImagePopup';
 import EditProfilePopup from '../components/EditProfilePopup';
+import EditAvatarPopup from "../components/EditAvatarPopup";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import myApi from "../utils/api";
 
@@ -50,6 +51,14 @@ function App() {
             .catch((err) => console.log(`Упс!: ${err}`));
     }
 
+    function handleUpdateAvatar(avatar) {
+      myApi.changeAvatar(avatar)
+          .then(() => {
+              setCurrentUser({...currentUser, avatar: avatar});
+              closeAllPopups();
+          })
+          .catch((err) => console.log(`Упс!: ${err}`));
+    }
 
     function closeAllPopups() {
     setIsAddPlacePopupOpen(false);
@@ -91,18 +100,11 @@ function App() {
           </PopupWithForm>
           <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
           <PopupWithForm name="delete-photo" title="Вы уверены?"/>
-          <PopupWithForm
-            name="new-avatar"
-            title="Обновить аватар"
+          <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}>
-                  <form className="popup__form popup__form_avatar">
-                      <input className="popup__input popup__input_avatar" placeholder="Ссылка на картинку"
-                                 type="url" name="avatar"
-                                 id="link-of-image" required/>
-                          <span className="popup__error" id="link-of-image-error"/>
-                  </form>
-          </PopupWithForm>
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
+          />
       </div>
       </CurrentUserContext.Provider>
   );
