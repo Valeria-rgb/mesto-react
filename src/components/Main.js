@@ -1,44 +1,67 @@
 import React from "react";
-import myApi from "../utils/api";
 import Card from "./Card";
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import myApi from "../utils/api";
 
 function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
-    const [userName, setUserName] = React.useState('');
-    const [userDescription, setUserDescription] = React.useState('');
-    const [userAvatar, setUserAvatar] = React.useState('');
     const [cards, setCards] = React.useState([]);
+    const currentUser = React.useContext(CurrentUserContext);
 
     React.useEffect(() => {
-        myApi.getStartData()
-            .then(([{name, about, avatar}, cards]) => {
-                setUserName(name);
-                setUserDescription(about);
-                setUserAvatar(avatar);
+        myApi.getCards()
+            .then((cards) => {
                 setCards(cards);
             })
             .catch((err) => console.log(`Упс!: ${err}`))
     }, []);
 
+    function handleCardLike(card) {
+        const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+        myApi.changeLikeCardStatus(card._id, !isLiked)
+            .then((newCard) => {
+            const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+            setCards(newCards);
+        })
+            .catch((err) => console.log(`Упс!: ${err}`));
+    }
+
+    function handleCardDelete(card) {
+        myApi.deleteCard(card._id)
+            .then(() => {
+            const newCards = cards.filter((c) => c._id !== card._id);
+            setCards(newCards);
+        })
+            .catch((err) => console.log(`Упс!: ${err}`));
+    }
+
+
     return (
         <main className="content">
             <section className="profile">
                 <div className="profile__avatar-container">
-                    <img className="profile__avatar" src={userAvatar} alt="Аватар"/>
+                    <img className="profile__avatar" src={currentUser.avatar} alt="Аватар"/>
                     <button className="profile__avatar-button" onClick={onEditAvatar}/>
                 </div>
                 <div className="profile__info">
                     <div className="profile__text">
-                        <h1 className="profile__name">{userName}</h1>
+                        <h1 className="profile__name">{currentUser.name}</h1>
                         <button className="profile__edit-button" type="button" aria-label="Edit" onClick={onEditProfile}/>
                     </div>
-                    <p className="profile__description">{userDescription}</p>
+                    <p className="profile__description">{currentUser.description}</p>
                 </div>
                 <button className="profile__add-button" type="button" onClick={onAddPlace}/>
             </section>
             <section className="elements">
                 <ul className="cards">
                     {cards.map((card) => (
-                        <Card card={card} onCardClick={onCardClick} key={card._id}/>
+                        <Card
+                            card={card}
+                            onCardClick={onCardClick}
+                            onCardLike={handleCardLike}
+                            onCardDelete={handleCardDelete}
+                            key={card._id}
+                        />
                     ))}
                 </ul>
             </section>

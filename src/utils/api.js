@@ -46,6 +46,7 @@ class Api {
         })
     }
 
+
     addCard(card) {
         return this._sendData("cards", {
             method: "POST",
@@ -57,23 +58,15 @@ class Api {
         })
     }
 
-    addLike(cardId) {
+    changeLikeCardStatus(cardId, isLiked) {
         return this._sendData(`cards/likes/${cardId}`, {
-            method: "PUT",
+            method: isLiked ? 'DELETE' : 'PUT',
             headers: this._headers
-        })
-
+        });
     }
 
     deleteCard(card) {
         return this._sendData(`cards/${card}`, {
-            method: "DELETE",
-            headers: this._headers
-        })
-    }
-
-    deleteLike(cardId) {
-        return this._sendData(`cards/likes/${cardId}`, {
             method: "DELETE",
             headers: this._headers
         })

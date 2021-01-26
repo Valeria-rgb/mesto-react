@@ -5,12 +5,25 @@ import Main from '../components/Main';
 import Footer from '../components/Footer';
 import PopupWithForm from '../components/PopupWithForm';
 import ImagePopup from '../components/ImagePopup';
+import EditProfilePopup from '../components/EditProfilePopup';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import myApi from "../utils/api";
+
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({link: "", name: "", isOpen: false});
+  const [currentUser, setCurrentUser] = React.useState({});
+
+  React.useEffect(() => {
+        myApi.getUserInfo()
+            .then(data => {
+                setCurrentUser(data)})
+            .catch((err) => console.log(`Упс!: ${err}`))
+    }, []);
+
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -28,6 +41,15 @@ function App() {
         setSelectedCard({link: card.link, name: card.name, isOpen: true});
     }
 
+    function handleUpdateUser(data) {
+        myApi.changeUserInfo(data)
+            .then(() => {
+                setCurrentUser({...currentUser, ...data});
+                closeAllPopups();
+            })
+            .catch((err) => console.log(`Упс!: ${err}`))
+    }
+
   function closeAllPopups() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -36,30 +58,21 @@ function App() {
   }
 
   return (
+      <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
           <Header/>
           <Main
             onEditAvatar={handleEditAvatarClick}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
-            onCardClick={handleCardClick}/>/>
+            onCardClick={handleCardClick}
+          />
           <Footer/>
-          <PopupWithForm
-              name="edit"
-              title="Редактировать профиль"
+          <EditProfilePopup
               isOpen={isEditProfilePopupOpen}
-              onClose={closeAllPopups}>
-            <form className="popup__form popup__form_edit" name="edit-form" noValidate>
-             <input className="popup__input popup__input_name" placeholder="Имя" type="text" name="name"
-                       id="name-field"
-                       minLength="2" maxLength="40" required/>
-                       <span className="popup__error_visible" id="name-field-error"/>
-             <input className="popup__input popup__input_description" placeholder="Род занятий" type="text"
-                         name="description/"
-                         id="description-field" minLength="2" maxLength="200" required/>
-                         <span className="popup__error_visible" id="description-field-error"/>
-           </form>
-          </PopupWithForm>
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
+          />
           <PopupWithForm
               name="add"
               title="Новое место"
@@ -90,6 +103,7 @@ function App() {
                   </form>
           </PopupWithForm>
       </div>
+      </CurrentUserContext.Provider>
   );
 }
 
