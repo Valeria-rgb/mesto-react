@@ -47,10 +47,11 @@ function App() {
                 setCurrentUser({...currentUser, ...data});
                 closeAllPopups();
             })
-            .catch((err) => console.log(`Упс!: ${err}`))
+            .catch((err) => console.log(`Упс!: ${err}`));
     }
 
-  function closeAllPopups() {
+
+    function closeAllPopups() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);

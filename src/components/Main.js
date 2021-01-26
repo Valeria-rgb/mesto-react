@@ -48,7 +48,7 @@ function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
                         <h1 className="profile__name">{currentUser.name}</h1>
                         <button className="profile__edit-button" type="button" aria-label="Edit" onClick={onEditProfile}/>
                     </div>
-                    <p className="profile__description">{currentUser.description}</p>
+                    <p className="profile__description">{currentUser.about}</p>
                 </div>
                 <button className="profile__add-button" type="button" onClick={onAddPlace}/>
             </section>

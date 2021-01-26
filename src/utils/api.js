@@ -35,17 +35,16 @@ class Api {
         ]);
     }
 
-    changeUserInfo(name, description) {
+    changeUserInfo(data) {
         return this._sendData("users/me", {
             method: "PATCH",
             headers: this._headers,
             body: JSON.stringify({
-                name: name,
-                about: description
+                name: data.name,
+                about: data.about
             })
         })
     }
-
 
     addCard(card) {
         return this._sendData("cards", {

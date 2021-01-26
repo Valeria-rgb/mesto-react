@@ -46,7 +46,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
                    minLength="2" maxLength="40" required/>
             <span className="popup__error_visible" id="name-field-error"/>
             <input className="popup__input popup__input_description" placeholder="Род занятий" type="text"
-                   name="description"
+                   name="about"
                    value={description}
                    onChange={handleChangeAbout}
                    id="description-field" minLength="2" maxLength="200" required/>
