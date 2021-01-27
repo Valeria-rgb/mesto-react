@@ -2,9 +2,11 @@ import PopupWithForm from "./PopupWithForm";
 import React from "react";
 
 function ConfirmDeletePopup({ isOpen, onClose, onDeleteCard }) {
+    const [isLoading, setIsLoading] = React.useState(false);
 
     function handleSubmit(e) {
         e.preventDefault();
+        setIsLoading(true);
         onDeleteCard();
     }
 
@@ -15,6 +17,7 @@ function ConfirmDeletePopup({ isOpen, onClose, onDeleteCard }) {
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleSubmit}
+            button={isLoading ? "Удаление..." : "Да"}
         />
     )
 }

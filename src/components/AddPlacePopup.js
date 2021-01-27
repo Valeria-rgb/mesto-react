@@ -4,6 +4,7 @@ import PopupWithForm from "./PopupWithForm";
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     const [name, setName] = React.useState('');
     const [link, setLink] = React.useState('');
+    const [isLoading, setIsLoading] = React.useState(false);
 
     React.useEffect(() => {
         setName('');
@@ -20,6 +21,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 
     function handleSubmit(e) {
         e.preventDefault();
+        setIsLoading(true);
 
         onAddPlace({
             name,
@@ -34,7 +36,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleSubmit}
-        >
+            button={isLoading ? "Сохранение..." : "Создать"}>
             <form className="popup__form popup__form_add" name="add-form" noValidate>
                 <input className="popup__input popup__input_image-title" placeholder="Название" type="text"
                        name="name"

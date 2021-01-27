@@ -3,6 +3,7 @@ import React from "react";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     const avatarRef = React.useRef();
+    const [isLoading, setIsLoading] = React.useState(false);
 
     function handleChangeAvatar(e) {
         avatarRef.current.value = e.target.value;
@@ -10,6 +11,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 
     function handleSubmit(e) {
         e.preventDefault();
+        setIsLoading(true);
         onUpdateAvatar(avatarRef.current.value);
     }
 
@@ -19,7 +21,8 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
             title="Обновить аватар"
             isOpen={isOpen}
             onClose={onClose}
-            onSubmit={handleSubmit}>
+            onSubmit={handleSubmit}
+            button={isLoading ? "Сохранение..." : "Сохранить"}>
             <form className="popup__form popup__form_avatar">
                 <input
                     className="popup__input popup__input_avatar"
