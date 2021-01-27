@@ -1,4 +1,3 @@
-
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -38,18 +37,25 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         onClose={onClose}
         onSubmit={handleSubmit}>
         <form className="popup__form popup__form_edit" name="edit-form" noValidate>
-            <input className="popup__input popup__input_name" placeholder="Имя" type="text"
-                   name="name"
-                   value={name}
-                   onChange={handleChangeName}
-                   id="name-field"
-                   minLength="2" maxLength="40" required/>
+            <input
+                className="popup__input popup__input_name"
+                placeholder="Имя"
+                type="text"
+                name="name"
+                value={name}
+                onChange={handleChangeName}
+                id="name-field"
+                minLength="2" maxLength="40" required/>
             <span className="popup__error_visible" id="name-field-error"/>
-            <input className="popup__input popup__input_description" placeholder="Род занятий" type="text"
-                   name="about"
-                   value={description}
-                   onChange={handleChangeAbout}
-                   id="description-field" minLength="2" maxLength="200" required/>
+            <input
+                className="popup__input popup__input_description"
+                placeholder="Род занятий"
+                type="text"
+                name="about"
+                value={description}
+                onChange={handleChangeAbout}
+                id="description-field"
+                minLength="2" maxLength="200" required/>
             <span className="popup__error_visible" id="description-field-error"/>
         </form>
     </PopupWithForm>

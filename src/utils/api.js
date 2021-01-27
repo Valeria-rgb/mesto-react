@@ -46,13 +46,13 @@ class Api {
         })
     }
 
-    addCard(card) {
+    addCard(newCard) {
         return this._sendData("cards", {
             method: "POST",
             headers: this._headers,
             body: JSON.stringify({
-                name: card.name,
-                link: card.link
+                name: newCard.name,
+                link: newCard.link
             })
         })
     }
