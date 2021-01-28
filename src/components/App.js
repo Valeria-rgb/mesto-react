@@ -91,7 +91,7 @@ function App() {
   function handleUpdateAvatar(avatar) {
       myApi.changeAvatar(avatar)
           .then(() => {
-              setCurrentUser({...currentUser, avatar: avatar});
+              setCurrentUser({...currentUser, ...avatar});
               closeAllPopups();
           })
           .catch((err) => console.log(`Упс!: ${err}`));
