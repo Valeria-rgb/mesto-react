@@ -37,7 +37,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
             onClose={onClose}
             onSubmit={handleSubmit}
             button={isLoading ? "Сохранение..." : "Создать"}>
-            <form className="popup__form popup__form_add" name="add-form" noValidate>
                 <input className="popup__input popup__input_image-title" placeholder="Название" type="text"
                        name="name"
                        value={name}
@@ -50,7 +49,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
                        onChange={handleAddCardLink}
                        id="link-of-image" required/>
                 <span className="popup__error" id="link-of-image-error"/>
-            </form>
         </PopupWithForm>
     );
 }

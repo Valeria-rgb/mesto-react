@@ -39,7 +39,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         onClose={onClose}
         onSubmit={handleSubmit}
         button={isLoading ? "Сохранение..." : "Сохранить"}>
-        <form className="popup__form popup__form_edit" name="edit-form" noValidate>
             <input
                 className="popup__input popup__input_name"
                 placeholder="Имя"
@@ -60,7 +59,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                 id="description-field"
                 minLength="2" maxLength="200" required/>
             <span className="popup__error_visible" id="description-field-error"/>
-        </form>
     </PopupWithForm>
     );
 }

@@ -25,7 +25,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
             onClose={onClose}
             onSubmit={handleSubmit}
             button={isLoading ? "Сохранение..." : "Сохранить"}>
-            <form className="popup__form popup__form_avatar">
                 <input
                     className="popup__input popup__input_avatar"
                     placeholder="Ссылка на картинку"
@@ -36,7 +35,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
                     id="link-of-image" required
                 />
                 <span className="popup__error" id="link-of-image-error"/>
-            </form>
         </PopupWithForm>
     );
 }
