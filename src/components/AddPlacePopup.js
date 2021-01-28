@@ -52,6 +52,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
                 <span className="popup__error" id="link-of-image-error"/>
             </form>
         </PopupWithForm>
-    )
+    );
 }
+
 export default AddPlacePopup

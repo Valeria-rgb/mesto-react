@@ -19,6 +19,7 @@ function ConfirmDeletePopup({ isOpen, onClose, onDeleteCard }) {
             onSubmit={handleSubmit}
             button={isLoading ? "Удаление..." : "Да"}
         />
-    )
+    );
 }
+
 export default ConfirmDeletePopup

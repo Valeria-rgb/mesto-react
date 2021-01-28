@@ -12,7 +12,9 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     function handleSubmit(e) {
         e.preventDefault();
         setIsLoading(true);
-        onUpdateAvatar(avatarRef.current.value);
+        onUpdateAvatar({
+            avatar: avatarRef.current.value,
+        });
     }
 
     return (
@@ -36,7 +38,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
                 <span className="popup__error" id="link-of-image-error"/>
             </form>
         </PopupWithForm>
-    )
+    );
 }
 
 export default EditAvatarPopup

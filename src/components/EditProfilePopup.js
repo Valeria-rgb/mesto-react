@@ -62,6 +62,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
             <span className="popup__error_visible" id="description-field-error"/>
         </form>
     </PopupWithForm>
-    )
+    );
 }
+
 export default EditProfilePopup
